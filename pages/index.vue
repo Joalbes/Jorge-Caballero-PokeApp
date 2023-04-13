@@ -6,7 +6,7 @@
     </div>
 
     <div>
-      <input type="text" class="border-solid border-2 border-green-100 bg-green-50 mt-[2%]">
+      <input type="text" v-model="search" @change="modificado" class="border-solid border-2 border-green-100 bg-green-50 mt-[2%]">
     </div>
 
     <div class="my-[2%] flex flex-wrap px-[5%] h-[80%]">
@@ -18,24 +18,34 @@
 
 <script>
 import { log } from 'console';
-
 export default {
+  name:"indexPage",
   data() {
     return {
-      posts: [] 
+      posts: [], 
+      search:""
     };
   },
-  mounted() {
-    this.getInfo()
-  },
+  
   methods: {
     async getInfo() {     
       for (let index = 1; index <= 20; index++) {
         let {data} = await this.$axios.get(`pokemon/${index}/`)
         this.posts.push(data)                      
-      }   
-         
-    }   
+      }       
+              
+    } , 
+    
+    modificado(){
+      console.log(this.search);
+      console.log(this.posts[0].name);
+    }
+
+
+  },
+  mounted() {
+    this.getInfo()
+    console.log(this.search);
   }
 }
 </script>
