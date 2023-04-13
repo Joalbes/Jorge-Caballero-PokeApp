@@ -10,7 +10,7 @@
     </div>
 
     <div class="my-[2%] flex flex-wrap px-[5%] h-[80%]">
-      <Card v-for="i in posts" :key="i.name" :nombre="i.name" :url="i.url" class="mx-[0.5%] my-[0.5%]"></Card>
+      <Card v-for="i in posts" :key="i.name" :nombre="i.name" :url="i.sprites.other.dream_world.front_default" class="mx-[0.5%] my-[0.5%]"></Card>
     </div>
 
   </div>
@@ -22,26 +22,20 @@ import { log } from 'console';
 export default {
   data() {
     return {
-      posts: []
+      posts: [] 
     };
   },
   mounted() {
     this.getInfo()
   },
   methods: {
-    async getInfo() {
-      const { data } = await this.$axios.get('pokemon')
-      this.posts = data.results
-      console.log(this.posts)
-    },
-
-    async getImage(){
-      const {data1} = await this.$axios.get('pokemon')
-      for (let index = 0; index < array.length; index++) {
-                
-      }
-
-    }
+    async getInfo() {     
+      for (let index = 1; index <= 20; index++) {
+        let {data} = await this.$axios.get(`pokemon/${index}/`)
+        this.posts.push(data)                      
+      }   
+         
+    }   
   }
 }
 </script>
